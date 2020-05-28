@@ -10,15 +10,17 @@ function App() {
   const [state, setState] = useState({
     s: "",
     results: [],
-    selected: {}
+    selected: {},
+    totalResults: 0
   })
 
   const search = (e) => {
     if (e.key === "Enter") {
       axios(searchUrl+state.s).then(({data})=>{
         let results = data.results
+        let totalResults = data.total_results
         setState(prevState => {
-          return {...prevState, results: results}
+          return {...prevState, results: results, totalResults: totalResults}
         })
       })
     }
@@ -52,7 +54,7 @@ function App() {
         <h1>Movie Library</h1>
       </header>
       <main>
-        <Search handleInput={handleInput} search={search} />
+        <Search handleInput={handleInput} search={search} totalResults={state.totalResults}/>
         <Results results={state.results} openPopup={openPopup} />
         {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
       </main>
