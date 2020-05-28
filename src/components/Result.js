@@ -1,10 +1,9 @@
 import React from 'react'
+import { imgUrl } from './../config'
 
-const imgUrl = `https://image.tmdb.org/t/p/w300/`
-
-function Result ({ result }) {
+function Result ({ result, openPopup }) {
   return (
-    <div className="result">
+    <div className="result" onClick={() => openPopup(result.id)}>
       <img src={imgUrl+result.poster_path}/>
       <h3>{result.title}</h3>
     </div>
