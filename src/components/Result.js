@@ -4,7 +4,7 @@ import { imgUrl } from './../config'
 function Result ({ result, openPopup }) {
   return (
     <div className="result" onClick={() => openPopup(result.id)}>
-      <img src={imgUrl+result.poster_path}/>
+      <img src={imgUrl+result.poster_path} alt={result.title}/>
       <h3>{result.title}</h3>
     </div>
   )

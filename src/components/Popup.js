@@ -8,7 +8,7 @@ function Popup({ selected, closePopup }) {
         <h2>{ selected.title } <span>({ selected.release_date })</span></h2>
         <p className="rating">Popularity: {selected.popularity}</p>
         <div className="plot">
-          <img src={imgUrl+selected.poster_path} />
+          <img src={imgUrl+selected.poster_path} alt={selected.title}/>
           <p>{selected.overview}</p>
         </div>
         <button className="close" onClick={closePopup}>Close</button>
