@@ -1,8 +1,11 @@
 import React from 'react'
 
-function Search ({handleInput, search, totalResults}) {
+import Select from "./Select";
+
+function Search ({handleInput, handleSelect, search, totalResults}) {
   return (
     <section className="searchBox-wrap">
+      <Select handleSelect={handleSelect}/>
       <input
         type="text"
         placeholder="Search..."

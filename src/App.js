@@ -11,19 +11,29 @@ function App() {
     s: "",
     results: [],
     selected: {},
-    totalResults: 0
+    totalResults: 0,
+    genreId: 0,
   })
 
   const search = (e) => {
     if (e.key === "Enter") {
       axios(searchUrl+state.s).then(({data})=>{
-        let results = data.results
         let totalResults = data.total_results
+        let results = state.genreId
+          ? data.results.filter(result => result.genre_ids.indexOf(+state.genreId) > -1)
+          : data.results
         setState(prevState => {
           return {...prevState, results: results, totalResults: totalResults}
         })
       })
     }
+  }
+
+  const handleSelect = (e) => {
+    let genre = e.target.value;
+    setState(prevState => {
+      return { ...prevState, genreId: genre}
+    })
   }
 
   const handleInput = (e) => {
@@ -54,7 +64,12 @@ function App() {
         <h1>Movie Library</h1>
       </header>
       <main>
-        <Search handleInput={handleInput} search={search} totalResults={state.totalResults}/>
+        <Search
+          handleInput={handleInput}
+          handleSelect={handleSelect}
+          search={search}
+          totalResults={state.totalResults}
+        />
         <Results results={state.results} openPopup={openPopup} />
         {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
       </main>
