@@ -1,12 +1,13 @@
 import React from 'react'
-import { imgUrl } from './../config'
+import { imgUrl } from '../config'
+import noPosterImg from '../assets/img/no-poster.jpg'
 
 function Result ({ result, openPopup }) {
   return (
     <div className="result" onClick={() => openPopup(result.id)}>
       {result.poster_path !== null
         ? <img src={imgUrl+result.poster_path} alt={result.title}/>
-        : <span className="unavailable">Poster is not available</span>
+        : <img src={noPosterImg} alt="Poster is not available"/>
       }
       <h3>{result.title}</h3>
     </div>

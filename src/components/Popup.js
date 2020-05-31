@@ -1,5 +1,6 @@
 import React from 'react'
-import { imgUrl } from './../config'
+import { imgUrl } from '../config'
+import noPosterImg from '../assets/img/no-poster.jpg'
 
 function Popup({ selected, closePopup }) {
   return (
@@ -10,7 +11,7 @@ function Popup({ selected, closePopup }) {
         <div className="plot">
           {selected.poster_path !== null
             ? <img src={imgUrl+selected.poster_path} alt={selected.title}/>
-            : <span>Poster is not available</span>
+            : <img src={noPosterImg} alt="Poster is not available"/>
           }
           <p>{selected.overview}</p>
         </div>
