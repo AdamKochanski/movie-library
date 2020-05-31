@@ -6,3 +6,7 @@
 
 - I set genres in config constants, these are universal values, it makes no sense to request api every time for it.
   (we can use some periodic caching mechanism if needed)
+
+**Styling**
+
+- I used Material IU library components + basic styling. I think that was the fastest solution.
