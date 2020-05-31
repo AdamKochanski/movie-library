@@ -38,7 +38,7 @@ function App() {
   };
 
   const switchPage = () => {
-    search(undefined, true);
+    if (state.totalPages > 0) { search(undefined, true); }
   };
 
   const handleChange = (page) => {
