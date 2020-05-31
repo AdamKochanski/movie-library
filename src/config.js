@@ -3,9 +3,8 @@ export const apiUrl = `https://api.themoviedb.org/3/`
 export const imgUrl = `https://image.tmdb.org/t/p/w300/`
 export const lang = `en-US`
 export const includeAdult = false
-export const page = 1
 
-export const searchUrl = `${apiUrl}search/movie?api_key=${apiKay}&language=${lang}&page=${page}&include_adult=${includeAdult}&query=`
+export const searchUrl = `${apiUrl}search/movie?api_key=${apiKay}&language=${lang}&include_adult=${includeAdult}&query=`
 
 export const genres = [
   {"id": 0, "name": "All"},

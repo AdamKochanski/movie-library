@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import { Pagination } from '@material-ui/lab';
 
 import { apiUrl, searchUrl, apiKay } from './config'
 import Search from './components/Search'
@@ -13,20 +14,41 @@ function App() {
     selected: {},
     totalResults: 0,
     genreId: 0,
+    totalPages: 0,
+    page: 1
   })
 
-  const search = (e) => {
-    if (e.key === "Enter") {
-      axios(searchUrl+state.s).then(({data})=>{
-        let totalResults = data.total_results
+  const search = (e, pageUpdate) => {
+    if (!pageUpdate) {
+      setState(prevState => {
+        return { ...prevState, page: 1}
+      })
+    }
+    if (e?.key === "Enter" || pageUpdate) {
+      axios(searchUrl+state.s+'&page='+state.page).then(({data})=>{
         let results = state.genreId
           ? data.results.filter(result => result.genre_ids.indexOf(+state.genreId) > -1)
           : data.results
         setState(prevState => {
-          return {...prevState, results: results, totalResults: totalResults}
+          return {
+            ...prevState,
+            results: results,
+            totalResults: data.total_results,
+            totalPages: data.total_pages
+          }
         })
       })
     }
+  }
+
+  const switchPage = () => {
+    search(void 0, true)
+  }
+
+  const handleChange = (page) => {
+    setState(prevState => {
+      return {...prevState, page: page}
+    })
   }
 
   const handleSelect = (e) => {
@@ -58,6 +80,8 @@ function App() {
     });
   }
 
+  useEffect(switchPage, [state.page])
+
   return (
     <div className="App">
       <header>
@@ -70,6 +94,10 @@ function App() {
           search={search}
           totalResults={state.totalResults}
         />
+        {(state.totalPages > 1)
+          ? <Pagination count={state.totalPages} page={state.page} onChange={(e,page) => handleChange(page)}/>
+          : false
+        }
         <Results results={state.results} openPopup={openPopup} />
         {(typeof state.selected.title != "undefined") ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
       </main>
