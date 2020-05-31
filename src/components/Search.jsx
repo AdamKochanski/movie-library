@@ -13,7 +13,7 @@ function Search({
       <Select handleSelect={handleSelect} />
       <input
         type="text"
-        placeholder="Search..."
+        placeholder="Press Enter for search..."
         className="searchBox"
         onChange={handleInput}
         onKeyPress={search}
