@@ -22,7 +22,7 @@ function App() {
     if (!pageUpdate) {
       setState((prevState) => ({ ...prevState, page: 1 }));
     }
-    if (e.key === 'Enter' || pageUpdate) {
+    if ((e && e.key === 'Enter') || pageUpdate) {
       axios(`${searchUrl + state.s}&page=${state.page}`).then(({ data }) => {
         const results = state.genreId
           ? data.results.filter((result) => result.genre_ids.indexOf(+state.genreId) > -1)
