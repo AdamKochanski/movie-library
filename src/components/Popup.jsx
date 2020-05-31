@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 import { imgUrl } from '../config';
 import noPosterImg from '../assets/img/no-poster.jpg';
 
@@ -7,13 +8,13 @@ function Popup({ selected, closePopup }) {
     <section className="popup">
       <div className="content">
         <h2>
-          {selected.title}
+          <p>{selected.title}</p>
           <span>
             {selected.release_date}
           </span>
         </h2>
         <p className="rating">
-          Popularity:
+          <span>Popularity: </span>
           {selected.popularity}
         </p>
         <div className="plot">
@@ -22,7 +23,7 @@ function Popup({ selected, closePopup }) {
             : <img src={noPosterImg} alt="Poster is not available" />}
           <p>{selected.overview}</p>
         </div>
-        <button type="button" className="close" onClick={closePopup}>Close</button>
+        <Button variant="contained" color="secondary" size="large" onClick={closePopup}>BACK</Button>
       </div>
     </section>
   );

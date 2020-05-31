@@ -1,6 +1,7 @@
 import React from 'react';
+import { TextField } from '@material-ui/core';
 
-import Select from './Select';
+import SelectGenre from './SelectGenre';
 
 function Search({
   handleInput,
@@ -10,18 +11,18 @@ function Search({
 }) {
   return (
     <section className="searchBox-wrap">
-      <Select handleSelect={handleSelect} />
-      <input
-        type="text"
-        placeholder="Press Enter for search..."
+      <SelectGenre handleSelect={handleSelect} />
+      <TextField
+        label="Search for movie..."
+        placeholder="Confirm with Enter"
         className="searchBox"
         onChange={handleInput}
         onKeyPress={search}
       />
-      <span className="amount">
-        Total results:
-        {totalResults}
-      </span>
+      <p className="amount">
+        <span>Total results: </span>
+        { totalResults}
+      </p>
     </section>
   );
 }

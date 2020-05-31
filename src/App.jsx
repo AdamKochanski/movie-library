@@ -71,7 +71,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Movie Library</h1>
+        <h1>- Movie Library -</h1>
       </header>
       <main>
         <Search
@@ -86,6 +86,7 @@ function App() {
               count={state.totalPages}
               page={state.page}
               onChange={(e, page) => handleChange(page)}
+              color="secondary"
             />
           )
           : false}
