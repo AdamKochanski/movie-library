@@ -4,7 +4,13 @@ import noPosterImg from '../assets/img/no-poster.jpg';
 
 function Result({ result, openPopup }) {
   return (
-    <div className="result" onClick={() => openPopup(result.id)}>
+    <div
+      role="button"
+      tabIndex={0}
+      className="result"
+      onKeyDown={() => openPopup(result.id)}
+      onClick={() => openPopup(result.id)}
+    >
       {result.poster_path !== null
         ? <img src={imgUrl + result.poster_path} alt={result.title} />
         : <img src={noPosterImg} alt="Poster is not available" />}
