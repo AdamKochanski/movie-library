@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { Pagination } from '@material-ui/lab';
+import {
+  RESULTS,
+  TOTAL_RESULTS,
+  TOTAL_PAGES,
+  SELECTED_ID,
+  SELECTED_DETAILS,
+} from './actions';
 
-import { apiUrl, searchUrl, apiKay } from './config';
+import { searchUrl } from './config';
 import Search from './components/Search';
 import Results from './components/Results';
 import Popup from './components/Popup';
@@ -10,13 +18,17 @@ import Popup from './components/Popup';
 function App() {
   const [state, setState] = useState({
     s: '',
-    results: [],
-    selected: {},
-    totalResults: 0,
     genreId: 0,
-    totalPages: 0,
     page: 1,
   });
+
+  const dispatch = useDispatch();
+
+  const selectedDetails = useSelector((store) => store.selected);
+  const selectedDetailsTitle = useSelector((store) => store.selected.title);
+  const searchResults = useSelector((store) => store.results);
+  const totalResults = useSelector((store) => store.totalResults);
+  const totalPages = useSelector((store) => store.totalPages);
 
   const search = (e, pageUpdate) => {
     if (!pageUpdate) {
@@ -27,12 +39,9 @@ function App() {
         const results = state.genreId
           ? data.results.filter((result) => result.genre_ids.indexOf(+state.genreId) > -1)
           : data.results;
-        setState((prevState) => ({
-          ...prevState,
-          results,
-          totalResults: data.total_results,
-          totalPages: data.total_pages,
-        }));
+        dispatch(RESULTS(results));
+        dispatch(TOTAL_RESULTS(data.total_results));
+        dispatch(TOTAL_PAGES(data.total_pages));
       });
     }
   };
@@ -56,14 +65,11 @@ function App() {
   };
 
   const openPopup = (id) => {
-    axios(`${apiUrl}movie/${id}?api_key=${apiKay}`).then(({ data }) => {
-      const result = data;
-      setState((prevState) => ({ ...prevState, selected: result }));
-    });
+    dispatch(SELECTED_ID(id));
   };
 
   const closePopup = () => {
-    setState((prevState) => ({ ...prevState, selected: {} }));
+    dispatch(SELECTED_DETAILS({}));
   };
 
   useEffect(switchPage, [state.page]);
@@ -78,20 +84,20 @@ function App() {
           handleInput={handleInput}
           handleSelect={handleSelect}
           search={search}
-          totalResults={state.totalResults}
+          totalResults={totalResults}
         />
         {(state.totalPages > 1)
           ? (
             <Pagination
-              count={state.totalPages}
+              count={totalPages}
               page={state.page}
               onChange={(e, page) => handleChange(page)}
               color="secondary"
             />
           )
           : false}
-        <Results results={state.results} openPopup={openPopup} />
-        {(typeof state.selected.title !== 'undefined') ? <Popup selected={state.selected} closePopup={closePopup} /> : false}
+        <Results results={searchResults} openPopup={openPopup} />
+        {(typeof selectedDetailsTitle !== 'undefined') ? <Popup selected={selectedDetails} closePopup={closePopup} /> : false}
       </main>
     </div>
   );
