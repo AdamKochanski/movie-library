@@ -18,7 +18,7 @@ function SelectGenre({ handleSelect }) {
           <MenuItem key={genre.id} value={genre.id}>{genre.name}</MenuItem>
         ))}
       </Select>
-      <FormHelperText>Genre</FormHelperText>
+      <FormHelperText>Search by genre</FormHelperText>
     </FormControl>
   );
 }
