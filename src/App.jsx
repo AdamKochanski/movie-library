@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import { Pagination } from '@material-ui/lab';
 import {
-  RESULTS,
-  TOTAL_RESULTS,
-  TOTAL_PAGES,
+  SEARCH_UPDATE,
   SELECTED_ID,
   SELECTED_DETAILS,
 } from './actions';
-
-import { searchUrl } from './config';
 import Search from './components/Search';
 import Results from './components/Results';
 import Popup from './components/Popup';
@@ -35,14 +30,7 @@ function App() {
       setState((prevState) => ({ ...prevState, page: 1 }));
     }
     if ((e && e.key === 'Enter') || pageUpdate) {
-      axios(`${searchUrl + state.s}&page=${state.page}`).then(({ data }) => {
-        const results = state.genreId
-          ? data.results.filter((result) => result.genre_ids.indexOf(+state.genreId) > -1)
-          : data.results;
-        dispatch(RESULTS(results));
-        dispatch(TOTAL_RESULTS(data.total_results));
-        dispatch(TOTAL_PAGES(data.total_pages));
-      });
+      dispatch(SEARCH_UPDATE(state.s, state.page, state.genreId));
     }
   };
 
