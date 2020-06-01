@@ -6,22 +6,20 @@ import SelectGenre from './SelectGenre';
 function Search({
   handleInput,
   handleSelect,
-  search,
   totalResults,
 }) {
   return (
     <section className="searchBox-wrap">
       <SelectGenre handleSelect={handleSelect} />
       <TextField
-        label="Search for movie..."
+        label="Search by phrase"
         placeholder="Confirm with Enter"
         className="searchBox"
-        onChange={handleInput}
-        onKeyPress={search}
+        onKeyPress={handleInput}
       />
       <p className="amount">
         <span>Total results: </span>
-        { totalResults}
+        {totalResults}
       </p>
     </section>
   );

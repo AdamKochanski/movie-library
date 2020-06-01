@@ -28,13 +28,24 @@ export const SELECTED_ID = (payload) => (dispatch) => {
   });
 };
 
-export const SEARCH_UPDATE = (s, page, genreId) => (dispatch) => {
+export const SEARCH_UPDATE = (s, page) => (dispatch) => {
   axios(`${searchUrl + s}&page=${page}`).then(({ data }) => {
-    const results = genreId
-      ? data.results.filter((result) => result.genre_ids.indexOf(+genreId) > -1)
-      : data.results;
-    dispatch(RESULTS(results));
+    dispatch(RESULTS(data.results));
     dispatch(TOTAL_RESULTS(data.total_results));
     dispatch(TOTAL_PAGES(data.total_pages));
   });
+};
+
+export const GENRE_UPDATE = (genreId, page) => (dispatch) => {
+  if (genreId !== 0) {
+    axios(`${apiUrl}discover/movie?api_key=${apiKay}&page=${page}&with_genres=${genreId}`).then(({ data }) => {
+      dispatch(RESULTS(data.results));
+      dispatch(TOTAL_RESULTS(data.total_results));
+      dispatch(TOTAL_PAGES(data.total_pages));
+    });
+  } else {
+    dispatch(RESULTS([]));
+    dispatch(TOTAL_RESULTS(0));
+    dispatch(TOTAL_PAGES(0));
+  }
 };

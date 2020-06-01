@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Pagination } from '@material-ui/lab';
 import {
   SEARCH_UPDATE,
+  GENRE_UPDATE,
   SELECTED_ID,
   SELECTED_DETAILS,
 } from './actions';
@@ -15,6 +16,7 @@ function App() {
     s: '',
     genreId: 0,
     page: 1,
+    searchMethod: '',
   });
 
   const dispatch = useDispatch();
@@ -25,31 +27,27 @@ function App() {
   const totalResults = useSelector((store) => store.totalResults);
   const totalPages = useSelector((store) => store.totalPages);
 
-  const search = (e, pageUpdate) => {
-    if (!pageUpdate) {
-      setState((prevState) => ({ ...prevState, page: 1 }));
-    }
-    if ((e && e.key === 'Enter') || pageUpdate) {
-      dispatch(SEARCH_UPDATE(state.s, state.page, state.genreId));
-    }
-  };
-
-  const switchPage = () => {
-    if (state.totalPages > 0) { search(undefined, true); }
-  };
-
   const handleChange = (page) => {
+    if (state.searchMethod === 'select') {
+      dispatch(GENRE_UPDATE(state.genreId, page));
+    } else if (state.searchMethod === 'input') {
+      dispatch(SEARCH_UPDATE(state.s, page));
+    }
     setState((prevState) => ({ ...prevState, page }));
   };
 
   const handleSelect = (e) => {
     const genre = e.target.value;
-    setState((prevState) => ({ ...prevState, genreId: genre }));
+    dispatch(GENRE_UPDATE(genre, state.page));
+    setState((prevState) => ({ ...prevState, genreId: genre, searchMethod: 'select' }));
   };
 
   const handleInput = (e) => {
     const s = e.target.value;
-    setState((prevState) => ({ ...prevState, s }));
+    if (e.key === 'Enter' && s.length > 2) {
+      dispatch(SEARCH_UPDATE(s, state.page));
+    }
+    setState((prevState) => ({ ...prevState, s, searchMethod: 'input' }));
   };
 
   const openPopup = (id) => {
@@ -60,8 +58,6 @@ function App() {
     dispatch(SELECTED_DETAILS({}));
   };
 
-  useEffect(switchPage, [state.page]);
-
   return (
     <div className="App">
       <header>
@@ -71,19 +67,18 @@ function App() {
         <Search
           handleInput={handleInput}
           handleSelect={handleSelect}
-          search={search}
           totalResults={totalResults}
+          setGenre={state.genreId}
         />
-        {(state.totalPages > 1)
-          ? (
+        {(totalPages > 1)
+          && (
             <Pagination
               count={totalPages}
               page={state.page}
               onChange={(e, page) => handleChange(page)}
               color="secondary"
             />
-          )
-          : false}
+          )}
         <Results results={searchResults} openPopup={openPopup} />
         {(typeof selectedDetailsTitle !== 'undefined') ? <Popup selected={selectedDetails} closePopup={closePopup} /> : false}
       </main>
