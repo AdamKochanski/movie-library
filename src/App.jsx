@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Pagination } from '@material-ui/lab';
 import {
-  SEARCH_UPDATE,
-  GENRE_UPDATE,
-  SELECTED_ID,
-  SELECTED_DETAILS,
+  searchUpdate,
+  genreUpdate,
+  selectID,
+  selectDetails,
 } from './actions';
 import Search from './components/Search';
 import Results from './components/Results';
@@ -30,33 +30,33 @@ function App() {
 
   const handleChange = (page) => {
     if (state.searchMethod === 'select') {
-      dispatch(GENRE_UPDATE(state.genreId, page));
+      dispatch(genreUpdate(state.genreId, page));
     } else if (state.searchMethod === 'input') {
-      dispatch(SEARCH_UPDATE(state.s, page));
+      dispatch(searchUpdate(state.s, page));
     }
     setState((prevState) => ({ ...prevState, page }));
   };
 
   const handleSelect = (e) => {
     const genre = e.target.value;
-    dispatch(GENRE_UPDATE(genre, state.page));
+    dispatch(genreUpdate(genre, state.page));
     setState((prevState) => ({ ...prevState, genreId: genre, searchMethod: 'select' }));
   };
 
   const handleInput = (e) => {
     const s = e.target.value;
     if (e.key === 'Enter' && s.length > 2) {
-      dispatch(SEARCH_UPDATE(s, state.page));
+      dispatch(searchUpdate(s, state.page));
     }
     setState((prevState) => ({ ...prevState, s, searchMethod: 'input' }));
   };
 
   const openPopup = (id) => {
-    dispatch(SELECTED_ID(id));
+    dispatch(selectID(id));
   };
 
   const closePopup = () => {
-    dispatch(SELECTED_DETAILS({}));
+    dispatch(selectDetails({}));
   };
 
   return (
