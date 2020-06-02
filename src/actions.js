@@ -7,13 +7,8 @@ export const RESULTS = (payload) => ({
   payload,
 });
 
-export const TOTAL_RESULTS = (payload) => ({
-  type: ACTIONS.UPDATE_TOTAL_RESULTS,
-  payload,
-});
-
-export const TOTAL_PAGES = (payload) => ({
-  type: ACTIONS.UPDATE_TOTAL_PAGES,
+export const RESULTS_RESET = (payload) => ({
+  type: ACTIONS.RESULTS_RESET,
   payload,
 });
 
@@ -30,22 +25,17 @@ export const SELECTED_ID = (payload) => (dispatch) => {
 
 export const SEARCH_UPDATE = (s, page) => (dispatch) => {
   axios(`${searchUrl + s}&page=${page}`).then(({ data }) => {
-    dispatch(RESULTS(data.results));
-    dispatch(TOTAL_RESULTS(data.total_results));
-    dispatch(TOTAL_PAGES(data.total_pages));
+    dispatch(RESULTS(data));
   });
 };
 
 export const GENRE_UPDATE = (genreId, page) => (dispatch) => {
   if (genreId !== 0) {
-    axios(`${apiUrl}discover/movie?api_key=${apiKay}&page=${page}&with_genres=${genreId}`).then(({ data }) => {
-      dispatch(RESULTS(data.results));
-      dispatch(TOTAL_RESULTS(data.total_results));
-      dispatch(TOTAL_PAGES(data.total_pages));
-    });
+    axios(`${apiUrl}discover/movie?api_key=${apiKay}&page=${page}&with_genres=${genreId}`)
+      .then(({ data }) => {
+        dispatch(RESULTS(data));
+      });
   } else {
-    dispatch(RESULTS([]));
-    dispatch(TOTAL_RESULTS(0));
-    dispatch(TOTAL_PAGES(0));
+    dispatch(RESULTS_RESET([]));
   }
 };

@@ -12,17 +12,16 @@ function reducer(state = defaultState, action) {
     case ACTIONS.UPDATE_RESULTS:
       return {
         ...state,
-        results: payload,
+        results: payload.results,
+        totalResults: payload.total_results,
+        totalPages: payload.total_pages,
       };
-    case ACTIONS.UPDATE_TOTAL_RESULTS:
+    case ACTIONS.RESULTS_RESET:
       return {
         ...state,
-        totalResults: payload,
-      };
-    case ACTIONS.UPDATE_TOTAL_PAGES:
-      return {
-        ...state,
-        totalPages: payload,
+        results: [],
+        totalResults: 0,
+        totalPages: 0,
       };
     case ACTIONS.UPDATE_SELECTED_DETAILS:
       return {
