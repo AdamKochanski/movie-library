@@ -11,3 +11,8 @@
 **Styling**
 
 - I used Material IU library components + basic styling. I think that was the fastest solution.
+- In this application I left styles in the main index file, if the application had to expand, 
+  I would separate them into individual components folders.
+  
+**Other**
+- I did not add TypeScript, if the application had to be larger, it would be worth considering.
