@@ -81,7 +81,8 @@ function App() {
             />
           )}
         <Results results={searchResults} openPopup={openPopup} />
-        {(typeof selectedDetailsTitle !== 'undefined') ? <Popup selected={selectedDetails} closePopup={closePopup} /> : false}
+        {(selectedDetailsTitle !== undefined)
+          && <Popup selected={selectedDetails} closePopup={closePopup} />}
       </main>
     </div>
   );
