@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/movie-library/static/css/main.ddc2392d.chunk.css",
+    "main.js": "/movie-library/static/js/main.efcb2f7d.chunk.js",
+    "main.js.map": "/movie-library/static/js/main.efcb2f7d.chunk.js.map",
+    "runtime-main.js": "/movie-library/static/js/runtime-main.f40346a7.js",
+    "runtime-main.js.map": "/movie-library/static/js/runtime-main.f40346a7.js.map",
+    "static/css/2.d01036fc.chunk.css": "/movie-library/static/css/2.d01036fc.chunk.css",
+    "static/js/2.159040be.chunk.js": "/movie-library/static/js/2.159040be.chunk.js",
+    "static/js/2.159040be.chunk.js.map": "/movie-library/static/js/2.159040be.chunk.js.map",
+    "index.html": "/movie-library/index.html",
+    "precache-manifest.2e52d35b7487455dfb56b2b46dc40b64.js": "/movie-library/precache-manifest.2e52d35b7487455dfb56b2b46dc40b64.js",
+    "service-worker.js": "/movie-library/service-worker.js",
+    "static/css/2.d01036fc.chunk.css.map": "/movie-library/static/css/2.d01036fc.chunk.css.map",
+    "static/css/main.ddc2392d.chunk.css.map": "/movie-library/static/css/main.ddc2392d.chunk.css.map",
+    "static/js/2.159040be.chunk.js.LICENSE.txt": "/movie-library/static/js/2.159040be.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/movie-library/static/media/lato-latin-900italic.bd86aaa7.woff2",
+    "static/media/no-poster.jpg": "/movie-library/static/media/no-poster.f211ed62.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f40346a7.js",
+    "static/css/2.d01036fc.chunk.css",
+    "static/js/2.159040be.chunk.js",
+    "static/css/main.ddc2392d.chunk.css",
+    "static/js/main.efcb2f7d.chunk.js"
+  ]
+}
