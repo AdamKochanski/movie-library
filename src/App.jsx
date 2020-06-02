@@ -10,6 +10,7 @@ import {
 import Search from './components/Search';
 import Results from './components/Results';
 import Popup from './components/Popup';
+import * as movieListSelector from './selectors/moviesList';
 
 function App() {
   const [state, setState] = useState({
@@ -21,11 +22,11 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const selectedDetails = useSelector((store) => store.selected);
-  const selectedDetailsTitle = useSelector((store) => store.selected.title);
-  const searchResults = useSelector((store) => store.results);
-  const totalResults = useSelector((store) => store.totalResults);
-  const totalPages = useSelector((store) => store.totalPages);
+  const selectedDetails = useSelector(movieListSelector.selectedDetails);
+  const selectedDetailsTitle = useSelector(movieListSelector.selectedDetailsTitle);
+  const searchResults = useSelector(movieListSelector.searchResults);
+  const totalResults = useSelector(movieListSelector.totalResults);
+  const totalPages = useSelector(movieListSelector.totalPages);
 
   const handleChange = (page) => {
     if (state.searchMethod === 'select') {

@@ -7,7 +7,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
 import 'typeface-lato';
-import reducer from './reducer';
+import reducer from './reducers';
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
