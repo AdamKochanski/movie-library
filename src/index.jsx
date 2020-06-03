@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.scss';
 import 'typeface-lato';
 import reducer from './reducers';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const store = createStore(reducer, composeWithDevTools(
+  applyMiddleware(thunk),
+));
 
 ReactDOM.render(
   <React.StrictMode>
